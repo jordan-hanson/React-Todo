@@ -1,18 +1,32 @@
 import React from 'react';
 
-const Form = (props) => {
-    return (
-        <div>
-            <div>
-                <input type="text" placeholder="task" onChange={props.inputChange}></input>
-            </div>
-            <div>
+class Form extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            input: ""
+        }
+    }
+    handleChanges = (event) => {
+        console.log(event.target.value)
+        this.setState({
+            input: event.target.value
+        })
+    }
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.addTask(this.state.input)
+    }
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <div>
+                    <input value={this.state.input} placeholder="task" onChange={this.handleChanges}></input>
+                </div>
                 <button>Add Task</button>
-                <button onClick={props.completed}>Completed</button>
-            </div>
-            <div>
-            </div>
-        </div>
-    )
+            </form>
+        )
+    }
+
 }
 export default Form
